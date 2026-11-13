@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lucky Play — Free Demo</title>
+<style>
+:root{--bg:#090d18;--panel:#141c2e;--gold:#ffd166;--muted:#aab4c8;--green:#38d39f;--red:#ff647c;--line:#34415c}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans Bengali",sans-serif;background:radial-gradient(circle at 50% -10%,#24345d 0,#0d1425 45%,var(--bg) 80%);color:#f7f8fc;min-height:100vh}
+.wrap{max-width:1050px;margin:auto;padding:22px 15px 48px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:24px;font-weight:900}.brand span{color:var(--gold)}.balance,.pill{background:#202b43;border:1px solid var(--line);padding:9px 13px;border-radius:14px;color:var(--gold);font-weight:800}
+.hero{text-align:center;padding:27px 10px 18px}.tag{display:inline-block;color:var(--green);font-size:12px;font-weight:800;letter-spacing:1px;border:1px solid #236b5a;padding:6px 10px;border-radius:99px}.hero h1{font-size:clamp(29px,6vw,46px);margin:13px 0 7px}.hero p,.muted{color:var(--muted)}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.nav button,.secondary{background:#202b43;color:#e9efff;border:1px solid #43516f;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:700}
+.panel,.game{background:linear-gradient(145deg,#1a2540,#11192b);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 18px 45px #0004;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.field label{font-size:13px;color:var(--muted)}input{width:100%;background:#0b1221;border:1px solid #42516e;color:white;padding:12px;border-radius:10px;font:inherit}
+.btn{border:0;border-radius:12px;padding:12px 19px;font-weight:900;font-size:15px;cursor:pointer;background:linear-gradient(135deg,#ffe08a,#ffb52e);color:#302006}.btn:disabled{opacity:.55;cursor:not-allowed}
+.slot{display:flex;justify-content:center;gap:12px;padding:18px 8px;background:#080d18;border:2px solid #43516f;border-radius:16px}.reel{width:clamp(72px,19vw,125px);height:clamp(78px,20vw,112px);display:grid;place-items:center;background:linear-gradient(180deg,#fff,#dfe6f3);border-radius:13px;color:#111;font-size:clamp(40px,10vw,60px);box-shadow:inset 0 -7px 0 #b6c2d5}
+.controls{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:15px}.controls input{width:105px}.message{text-align:center;min-height:28px;margin:15px 0 0;font-weight:800}.win{color:var(--green)}.lose{color:var(--red)}
+.stat{background:#0c1425;border:1px solid #2d3a55;border-radius:13px;padding:14px}.stat b{display:block;font-size:24px;color:var(--gold)}.hide{display:none!important}.notice{font-size:12px;line-height:1.7;color:#9eabc3}.danger{color:#ffb0bc}.success{color:var(--green)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:10px;border-bottom:1px solid #34415c}th{color:var(--gold)}
+.footer{text-align:center;color:#74819b;font-size:12px;margin-top:30px}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div class="brand">🍀 LUCKY <span>PLAY</span></div><div class="balance">🪙 ব্যালেন্স: <b id="balance">—</b> কয়েন</div><div id="userBadge" class="pill">অতিথি</div></header>
+<section class="hero"><div class="tag">শুধুই ফ্রি ডেমো • কোনো বাস্তব টাকা নয়</div><h1>স্পিন করো, মজা নাও!</h1><p>ভার্চুয়াল কয়েন, রেফারেল ও ডেমো অ্যাডমিন ড্যাশবোর্ড।</p></section>
+
+<section id="auth" class="panel">
+ <div class="grid">
+  <div><h2>লগইন</h2><div class="field"><label>ইমেইল</label><input id="loginEmail" type="email" placeholder="তোমার ইমেইল"></div><div class="field"><label>পাসওয়ার্ড</label><input id="loginPass" type="password" placeholder="পাসওয়ার্ড"></div><button class="btn" id="loginBtn">লগইন</button></div>
+  <div><h2>নতুন অ্যাকাউন্ট</h2><div class="field"><label>নাম</label><input id="regName" placeholder="তোমার নাম"></div><div class="field"><label>ইমেইল</label><input id="regEmail" type="email" placeholder="name@example.com"></div><div class="field"><label>পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label><input id="regPass" type="password" placeholder="পাসওয়ার্ড"></div><div class="field"><label>রেফারেল কোড (ঐচ্ছিক)</label><input id="refCode" placeholder="রেফারেল কোড"></div><button class="btn" id="registerBtn">রেজিস্ট্রেশন</button></div>
+ </div><p id="authMsg" class="message"></p>
+ <p class="notice">ডেমো অ্যাডমিন: <b>admin@demo.local</b> / <b>demo1234</b>। এই এক-ফাইল সংস্করণে তথ্য শুধু এই ব্রাউজারের Local Storage-এ থাকে; এটি নিরাপদ/প্রোডাকশন লগইন নয়।</p>
+</section>
+
+<div id="app" class="hide">
+ <nav class="nav"><button data-view="gameView">🎰 গেম</button><button data-view="profileView">👤 প্রোফাইল ও রেফারেল</button><button id="adminNav" data-view="adminView" class="hide">🛠 অ্যাডমিন</button><button id="logoutBtn">লগআউট</button></nav>
+ <section id="gameView" class="game"><h2 style="text-align:center">🎰 স্লট ডেমো</h2><div class="slot"><div class="reel" id="r1">🍒</div><div class="reel" id="r2">⭐</div><div class="reel" id="r3">🍋</div></div><div class="controls"><label for="bet">প্রতি স্পিন:</label><input id="bet" type="number" min="10" max="500" step="10" value="50"><button class="btn" id="spin">স্পিন</button><button class="secondary" id="reset">ব্যালেন্স রিসেট</button></div><div class="message" id="gameMsg">শুরু করতে স্পিন চাপো!</div><p class="notice" style="text-align:center">৩টি একই = ৫ গুণ • ২টি একই = ২ গুণ • অন্য ফল = বাজি হার।</p></section>
+ <section id="profileView" class="panel hide"><h2>তোমার প্রোফাইল</h2><div class="grid"><div class="stat">নাম<b id="profileName">—</b></div><div class="stat">রেফারেল কোড<b id="myCode">—</b></div><div class="stat">আমার রেফারেল<b id="refCount">0</b></div></div><p>তোমার রেফারেল লিংক:</p><div class="field"><input id="refLink" readonly></div><button class="btn" id="copyRef">লিংক কপি</button><p id="copyMsg" class="notice"></p></section>
+ <section id="adminView" class="panel hide"><h2>🛠 অ্যাডমিন ড্যাশবোর্ড</h2><div class="grid"><div class="stat">মোট অ্যাকাউন্ট<b id="totalUsers">0</b></div><div class="stat">মোট রেফারেল<b id="totalRefs">0</b></div></div><h3>রেজিস্টার্ড ইউজার</h3><div class="tablewrap"><table><thead><tr><th>নাম</th><th>ইমেইল</th><th>রেফারেল কোড</th><th>রেফার করেছে</th><th>কয়েন</th></tr></thead><tbody id="usersTable"></tbody></table></div><p class="notice danger">এটি কেবল লোকাল ডেমো অ্যাডমিন প্যানেল। সার্ভার, ভূমিকা-ভিত্তিক অনুমতি, এনক্রিপশন ও নিরাপদ ডেটাবেস ছাড়া বাস্তব ব্যবহার করা যাবে না।</p></section>
+</div>
+<p class="notice">গুরুত্বপূর্ণ: এই সাইটে টাকা জমা, টাকা তোলা, পেমেন্ট বা বাস্তব অর্থের জুয়া নেই। অ্যাকাউন্ট ও কয়েন একই ডিভাইস/ব্রাউজারে সংরক্ষিত থাকে। ব্রাউজারের ডেটা মুছে ফেললে ডেমো ডেটাও মুছে যাবে।</p>
+<div class="footer">LUCKY PLAY · VIRTUAL COINS ONLY</div></main>
+<script>
+const KEY='luckyPlayDemo_v2', symbols=['🍒','⭐','🍋','🔔','🍇','💎'];
+const $=id=>document.getElementById(id);
+let db=JSON.parse(localStorage.getItem(KEY)||'{"users":[]}'), current=null;
+const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
+const makeCode=()=>('LP'+Math.random().toString(36).slice(2,8)).toUpperCase();
+const money=n=>Math.max(0,Number(n)||0);
+function msg(el,text,kind=''){el.textContent=text;el.className='message '+kind}
+function showApp(){ $('auth').classList.add('hide');$('app').classList.remove('hide');$('userBadge').textContent=current.name;$('balance').textContent=current.coins;$('adminNav').classList.toggle('hide',current.role!=='admin');$('profileName').textContent=current.name;$('myCode').textContent=current.code;$('refCount').textContent=db.users.filter(u=>u.referredBy===current.code).length;$('refLink').value=location.href.split('?')[0]+'?referralCode='+current.code;showView('gameView');}
+function showView(id){['gameView','profileView','adminView'].forEach(v=>$(v).classList.toggle('hide',v!==id));if(id==='adminView')renderAdmin();}
+function login(email,pass){const u=db.users.find(x=>x.email===email.toLowerCase()&&x.pass===pass);if(!u)return false;current=u;showApp();return true;}
+$('registerBtn').onclick=()=>{const name=$('regName').value.trim(),email=$('regEmail').value.trim().toLowerCase(),pass=$('regPass').value,ref=$('refCode').value.trim().toUpperCase();if(!name||!email||pass.length<6){msg($('authMsg'),'নাম, সঠিক ইমেইল ও কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড দাও।','lose');return}if(db.users.some(u=>u.email===email)){msg($('authMsg'),'এই ইমেইলে অ্যাকাউন্ট আছে। লগইন করো।','lose');return}const referrer=db.users.find(u=>u.code===ref);if(ref&&!referrer){msg($('authMsg'),'রেফারেল কোডটি পাওয়া যায়নি।','lose');return}const u={name,email,pass,code:makeCode(),referredBy:referrer?ref:null,coins:1000,role:'user'};db.users.push(u);save();current=u;showApp();};
+$('loginBtn').onclick=()=>{const email=$('loginEmail').value.trim().toLowerCase(),pass=$('loginPass').value;if(email==='admin@demo.local'&&pass==='demo1234'){let a=db.users.find(u=>u.email===email);if(!a){a={name:'Demo Admin',email,pass,code:'ADMIN01',coins:0,role:'admin'};db.users.push(a);save()}current=a;showApp();return}if(!login(email,pass))msg($('authMsg'),'ইমেইল বা পাসওয়ার্ড সঠিক নয়।','lose');};
+$('logoutBtn').onclick=()=>{current=null;$('app').classList.add('hide');$('auth').classList.remove('hide');$('balance').textContent='—';$('userBadge').textContent='অতিথি';};
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{if(b.dataset.view==='adminView'&&current.role!=='admin')return;showView(b.dataset.view)});
+$('copyRef').onclick=()=>{const input=$('refLink');input.select();try{document.execCommand('copy');$('copyMsg').textContent='রেফারেল লিংক কপি হয়েছে।'}catch(e){$('copyMsg').textContent='লিংকটি সিলেক্ট করে কপি করো।'}};
+function renderAdmin(){if(current.role!=='admin')return;const users=db.users.filter(u=>u.role!=='admin');$('totalUsers').textContent=users.length;$('totalRefs').textContent=users.filter(u=>u.referredBy).length;$('usersTable').innerHTML=users.map(u=>`<tr><td>${escapeHtml(u.name)}</td><td>${escapeHtml(u.email)}</td><td>${escapeHtml(u.code)}</td><td>${escapeHtml(u.referredBy||'—')}</td><td>${money(u.coins)}</td></tr>`).join('');}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+$('spin').onclick=()=>{const bet=Number($('bet').value);if(!Number.isInteger(bet)||bet<10||bet>500){msg($('gameMsg'),'১০–৫০০ কয়েনের মধ্যে বাজি দাও।','lose');return}if(bet>current.coins){msg($('gameMsg'),'পর্যাপ্ত কয়েন নেই। রিসেট করো।','lose');return}$('spin').disabled=true;current.coins-=bet;let ticks=0;const timer=setInterval(()=>{['r1','r2','r3'].forEach(id=>$(id).textContent=symbols[Math.floor(Math.random()*symbols.length)]);if(++ticks>=12){clearInterval(timer);const r=[$('r1').textContent,$('r2').textContent,$('r3').textContent];let mult=r[0]===r[1]&&r[1]===r[2]?5:(r[0]===r[1]||r[1]===r[2]||r[0]===r[2]?2:0);const win=bet*mult;current.coins+=win;save();$('balance').textContent=current.coins;msg($('gameMsg'),win?`অভিনন্দন! ${win} কয়েন জিতেছো 🎉`:'এইবার জিততে পারোনি। আবার চেষ্টা করো!',win?'win':'lose');$('spin').disabled=false}},75);};
+$('reset').onclick=()=>{current.coins=1000;save();$('balance').textContent=current.coins;msg($('gameMsg'),'ব্যালেন্স ১,০০০ কয়েনে রিসেট হয়েছে।');};
+const query=new URLSearchParams(location.search).get('referralCode');if(query&&!$('refCode').value)$('refCode').value=query.toUpperCase();
+</script></body></html>
